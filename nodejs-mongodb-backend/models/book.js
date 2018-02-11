@@ -44,3 +44,13 @@ var Book = module.exports = mongoose.model("Book", bookSchema);
 module.exports.getBooks = (callback, limit) => {
     Book.find(callback).limit(limit);
 }
+
+// Get a book
+module.exports.getBookById = (id, callback) => {
+    Book.findById(id, callback);
+}
+
+// Add book
+module.exports.addBook = (book, callback) => {
+    Book.create(book, callback);
+}

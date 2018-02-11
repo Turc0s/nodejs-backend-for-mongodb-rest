@@ -29,12 +29,41 @@ app.get("/api/genres", (req, res) => {
     });
 });
 
+app.post("/api/genres", (req, res) => {
+    var genre = req.body;
+    Genre.addGenre(genre, (err, genre) => {
+        if(err) {
+            throw err;
+        }
+        res.json(genre);
+    });
+});
+
 app.get("/api/books", (req, res) => {
     Book.getBooks((err, books) => {
         if(err) {
             throw err;
         }
         res.json(books);
+    });
+});
+
+app.get("/api/book/:_id", (req, res) => {
+    Book.getBookById(req.params._id, (err, book) => {
+        if(err) {
+            throw err;
+        }
+        res.json(book);
+    });
+});
+
+app.post("/api/books", (req, res) => {
+    var book = req.body;
+    Book.addBook(book, (err, book) => {
+        if(err) {
+            throw err;
+        }
+        res.json(book);
     });
 });
 
