@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
     res.send("Please use /api/books or /api/genre")
 });
 
+// Get all genres
 app.get("/api/genres", (req, res) => {
     Genre.getGenres((err, genres) => {
         if(err) {
@@ -29,6 +30,17 @@ app.get("/api/genres", (req, res) => {
     });
 });
 
+// Get a single genre
+app.get("/api/genre/:_id", (req, res) => {
+    Genre.getGenreById(req.params._id, (err, genre) => {
+        if(err) {
+            throw err;
+        }
+        res.json(genre);
+    })
+});
+
+// Add a genre
 app.post("/api/genres", (req, res) => {
     var genre = req.body;
     Genre.addGenre(genre, (err, genre) => {
@@ -39,6 +51,19 @@ app.post("/api/genres", (req, res) => {
     });
 });
 
+// Update a genre
+app.put("/api/genres/:_id", (req, res) => {
+    var id = req.params._id;
+    var genre = req.body;
+    Genre.updateGenre(id, genre, {}, (err, genre) => {
+        if(err) {
+            throw err;
+        }
+        res.json(genre);
+    });
+});
+
+// Get all books
 app.get("/api/books", (req, res) => {
     Book.getBooks((err, books) => {
         if(err) {
@@ -48,6 +73,7 @@ app.get("/api/books", (req, res) => {
     });
 });
 
+// Get a single book
 app.get("/api/book/:_id", (req, res) => {
     Book.getBookById(req.params._id, (err, book) => {
         if(err) {
@@ -57,9 +83,22 @@ app.get("/api/book/:_id", (req, res) => {
     });
 });
 
+// Add a new book
 app.post("/api/books", (req, res) => {
     var book = req.body;
     Book.addBook(book, (err, book) => {
+        if(err) {
+            throw err;
+        }
+        res.json(book);
+    });
+});
+
+// Update a book
+app.put("/api/books/:_id", (req, res) => {
+    var id = req.params._id;
+    var book = req.body;
+    Book.updateBook(id, book, {}, (err, book) => {
         if(err) {
             throw err;
         }
